@@ -72,7 +72,7 @@ export const ContinueModal = ({ modalOpen, modalClose, modalSubmit }) => {
 				</Box>
 
 				<Typography sx={{ mt: 1 }} variant="subtitle1">
-					Select a desired output format for your file list
+					Select a desired output format for your file list. The default is Excel.
 				</Typography>
 				<Box sx={innerBoxStyle}>
 					<Select
