@@ -63,8 +63,8 @@ function App(): JSX.Element {
 				<SideNav accessToken={accessToken} idToken={idToken} />
 				<main style={{ width: "85%", marginLeft: "15%" }}>
 					<Routes>
-            <Route path="/" element={<HomePage authenticated={!!accessToken} />} />
-						<Route path="/file-list" element={<FileListPage authenticated={!!accessToken} />} />
+						<Route path="/" element={<HomePage authenticated={!!accessToken} />} />
+						<Route path="/file-list" element={<FileListPage accessToken={accessToken} />} />
 						<Route path="/send-records" element={<SendRecordsPage />} />
 					</Routes>
 				</main>

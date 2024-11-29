@@ -2,6 +2,7 @@ import { Button, TextField, Form, Select } from "@bcgov/design-system-react-comp
 import { Box, Typography, Modal } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { fileTypes } from "@renderer/schemas";
 
 const modalStyle = {
 	position: "absolute",
@@ -32,6 +33,7 @@ export const ContinueModal = ({ modalOpen, modalClose, modalSubmit }) => {
 	// setSubmitted controls what modal is being shown, additional information or conformation
 	const [submitted, setsubmitted] = useState<boolean>(false);
 	const navigate = useNavigate();
+
 	const submitForm = (event) => {
 		event.preventDefault();
 		const data = Object.fromEntries(new FormData(event.currentTarget));
@@ -77,13 +79,10 @@ export const ContinueModal = ({ modalOpen, modalClose, modalSubmit }) => {
 				<Box sx={innerBoxStyle}>
 					<Select
 						isRequired
-						items={[
-							{ id: "1", label: "Excel (.xlsx)" },
-							{ id: "2", label: "JSON (.json)" },
-						]}
+						items={Object.values(fileTypes)}
 						name="outputFormat"
 						label="Output format"
-						defaultSelectedKey={"1"}
+						defaultSelectedKey={1}
 					/>
 				</Box>
 

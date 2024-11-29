@@ -9,12 +9,15 @@ import {
 import { useEffect, useState } from "react";
 import { useGridApiRef } from "@mui/x-data-grid";
 import { Lightbulb as TipIcon } from "@mui/icons-material";
+import { CreateFileListBody, FileMetadataZodType, FolderMetadataZodType } from "@renderer/schemas";
 
 type Props = {
-	authenticated: boolean;
+	accessToken: string | undefined;
 };
 
-export const FileListPage = ({ authenticated }: Props) => {
+export const FileListPage = ({ accessToken }: Props) => {
+	// Preload scripts to get user data
+	const [sso] = useState(window.api.sso);
 	// setOpen state controls continue modal
 	const [open, setOpen] = useState(false);
 	// setRows state controls rows displayed
@@ -89,11 +92,12 @@ export const FileListPage = ({ authenticated }: Props) => {
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
 		handleShowContinue();
-	}, [rows, authenticated]);
+	}, [rows, !!accessToken]);
 
 	const handleShowContinue = () => {
 		let enabled: boolean;
 		const allProgressComplete = rows.every((obj) => obj.progress === 100);
+		const authenticated = !!accessToken;
 		// if the user is not authenticated,
 		//    or there are no folders selected,
 		//    or the metadata is not finished loading
@@ -148,9 +152,57 @@ export const FileListPage = ({ authenticated }: Props) => {
 
 	const handleFormSubmit = (formData) => {
 		// on form submit print the data we currently have and reset rows to empty list
-		console.log("form submitted");
-		console.log(formData);
-		// TODO: process submitted form data
+		// get user data from auth token
+		const user = sso.getUser(accessToken);
+
+		const fileTypeRequested = formData.outPutFormat; // get excel/json from id
+
+		const folderMetadata: FolderMetadataZodType = {
+			// fill these in
+			schedule: "",
+			classification: "",
+			file: "",
+			opr: null,
+			startDate: "",
+			endDate: "",
+			soDate: "",
+			fdDate: "",
+		};
+
+		const fileMetadata: FileMetadataZodType = {
+			// fill these in
+			filepath: "",
+			filename: "",
+			size: "",
+			checksum: "",
+			birthtime: "",
+			lastModified: "",
+			lastAccessed: "",
+			lastSaved: "",
+			authors: "",
+			owner: "",
+			company: "",
+			computer: "",
+			contentType: "",
+			programName: "",
+		};
+
+		const requestBody: CreateFileListBody = {
+			outputFileType: fileTypeRequested,
+			metadata: {
+				admin: {
+					application: formData.applicationNumber,
+					accession: formData.accessionNumber,
+				},
+				folders: folderMetadata, // fix these errors
+				files: fileMetadata,
+			},
+		};
+		console.log(requestBody, user);
+
+		// clear rows on page
+		setRows([]);
+		// TODO: process submitted form data and metadata
 	};
 
 	const handleAddPathArrayToRows = (inputPaths: string[]) => {
