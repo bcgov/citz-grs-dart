@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
+//@ts-ignore
 import { SideNav, VPNPopup } from "./components";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { FileListPage, HomePage, SendRecordsPage } from "./pages";
 
 function App(): JSX.Element {
 	const [api] = useState(window.api); // Preload scripts
+	//@ts-ignore
 	const [showVPNPopup, setShowVPNPopup] = useState<boolean | null>(null);
 
 	// Authentication state
@@ -68,7 +70,7 @@ function App(): JSX.Element {
 						<Route path="/send-records" element={<SendRecordsPage />} />
 					</Routes>
 				</main>
-				{showVPNPopup && <VPNPopup />}
+				{/*{showVPNPopup && <VPNPopup />}*/}
 			</div>
 		</BrowserRouter>
 	);

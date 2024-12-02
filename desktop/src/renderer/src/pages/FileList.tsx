@@ -9,7 +9,11 @@ import {
 import { useEffect, useState } from "react";
 import { useGridApiRef } from "@mui/x-data-grid";
 import { Lightbulb as TipIcon } from "@mui/icons-material";
-import { CreateFileListBody, FileMetadataZodType, FolderMetadataZodType } from "@renderer/schemas";
+// import type {
+// 	createFileListBodySchema,
+// 	fileMetadataSchema,
+// 	folderMetadataSchema,
+// } from "@renderer/schemas";
 
 type Props = {
 	accessToken: string | undefined;
@@ -155,54 +159,58 @@ export const FileListPage = ({ accessToken }: Props) => {
 		// get user data from auth token
 		const user = sso.getUser(accessToken);
 
-		const fileTypeRequested = formData.outPutFormat; // get excel/json from id
+		const fileTypeRequested = formData.outputFormat; // get excel/json from id
 
-		const folderMetadata: FolderMetadataZodType = {
-			// fill these in
-			schedule: "",
-			classification: "",
-			file: "",
-			opr: null,
-			startDate: "",
-			endDate: "",
-			soDate: "",
-			fdDate: "",
-		};
+		// const folderMetadata: folderMetadataSchema = {
+		// 	// fill these in
+		// 	schedule: "",
+		// 	classification: "",
+		// 	file: "",
+		// 	opr: null,
+		// 	startDate: "",
+		// 	endDate: "",
+		// 	soDate: "",
+		// 	fdDate: "",
+		// };
 
-		const fileMetadata: FileMetadataZodType = {
-			// fill these in
-			filepath: "",
-			filename: "",
-			size: "",
-			checksum: "",
-			birthtime: "",
-			lastModified: "",
-			lastAccessed: "",
-			lastSaved: "",
-			authors: "",
-			owner: "",
-			company: "",
-			computer: "",
-			contentType: "",
-			programName: "",
-		};
+		// const fileMetadata: fileMetadataSchema = {
+		// 	// fill these in
+		// 	filepath: "",
+		// 	filename: "",
+		// 	size: "",
+		// 	checksum: "",
+		// 	birthtime: "",
+		// 	lastModified: "",
+		// 	lastAccessed: "",
+		// 	lastSaved: "",
+		// 	authors: "",
+		// 	owner: "",
+		// 	company: "",
+		// 	computer: "",
+		// 	contentType: "",
+		// 	programName: "",
+		// };
 
-		const requestBody: CreateFileListBody = {
-			outputFileType: fileTypeRequested,
-			metadata: {
-				admin: {
-					application: formData.applicationNumber,
-					accession: formData.accessionNumber,
-				},
-				folders: folderMetadata, // fix these errors
-				files: fileMetadata,
-			},
-		};
-		console.log(requestBody, user);
+		// const requestBody: createFileListBodySchema = {
+		// 	outputFileType: fileTypeRequested,
+		// 	metadata: {
+		// 		admin: {
+		// 			application: formData.applicationNumber,
+		// 			accession: formData.accessionNumber,
+		// 		},
+		// 		folders: folderMetadata, // fix these errors
+		// 		files: fileMetadata,
+		// 	},
+		// };
+		//console.log(requestBody, user);
+
+		console.log("user: ", user);
+		console.log("type of metadata: ", typeof metadata, " ... metadata: ", metadata);
+		console.log("form data: ", formData, " ... file type: ", fileTypeRequested);
+		console.log("");
 
 		// clear rows on page
 		setRows([]);
-		// TODO: process submitted form data and metadata
 	};
 
 	const handleAddPathArrayToRows = (inputPaths: string[]) => {

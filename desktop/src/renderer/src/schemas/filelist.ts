@@ -1,52 +1,48 @@
-import { z } from "zod";
-
 // Folder Metadata Zod Schema
-export const folderMetadataZodSchema = z.object({
-	schedule: z.union([z.string(), z.null()]).optional(),
-	classification: z.union([z.string(), z.null()]).optional(),
-	file: z.union([z.string(), z.null()]).optional(),
-	opr: z.union([z.boolean(), z.null()]).optional(),
-	startDate: z.union([z.string(), z.null()]).optional(),
-	endDate: z.union([z.string(), z.null()]).optional(),
-	soDate: z.union([z.string(), z.null()]).optional(),
-	fdDate: z.union([z.string(), z.null()]).optional(),
-});
+export interface folderMetadataSchema {
+	schedule?: string | null;
+	classification?: string | null;
+	file?: string | null;
+	opr?: boolean | null;
+	startDate?: string | null;
+	endDate?: string | null;
+	soDate?: string | null;
+	fdDate?: string | null;
+}
 
-export type FolderMetadataZodType = z.infer<typeof folderMetadataZodSchema>;
+//export type FolderMetadataZodType = z.infer<typeof folderMetadataZodSchema>;
 
 // File Metadata Zod Schema
-export const fileMetadataZodSchema = z.object({
-	filepath: z.string(),
-	filename: z.string(),
-	size: z.string(),
-	checksum: z.string(),
-	birthtime: z.string(),
-	lastModified: z.string(),
-	lastAccessed: z.string(),
-	lastSaved: z.union([z.string(), z.null()]).optional(),
-	authors: z.union([z.string(), z.null()]).optional(),
-	owner: z.union([z.string(), z.null()]).optional(),
-	company: z.union([z.string(), z.null()]).optional(),
-	computer: z.union([z.string(), z.null()]).optional(),
-	contentType: z.union([z.string(), z.null()]).optional(),
-	programName: z.union([z.string(), z.null()]).optional(),
-});
+export interface fileMetadataSchema {
+	filepath: string;
+	filename: string;
+	size: string;
+	checksum: string;
+	birthtime: string;
+	lastModified: string;
+	lastAccessed: string;
+	lastSaved?: string | null;
+	authors?: string | null;
+	owner?: string | null;
+	company?: string | null;
+	computer?: string | null;
+	contentType?: string | null;
+	programName?: string | null;
+}
 
-export type FileMetadataZodType = z.infer<typeof fileMetadataZodSchema>;
+//export type FileMetadataZodType = z.infer<typeof fileMetadataZodSchema>;
 
-export const createFileListBodySchema = z.object({
-	outputFileType: z.enum(["excel", "json"]),
-	metadata: z.object({
-		admin: z
-			.object({
-				application: z.string().optional(),
-				accession: z.string().optional(),
-			})
-			.optional(),
-		folders: z.record(folderMetadataZodSchema),
-		files: z.record(z.array(fileMetadataZodSchema)),
-	}),
-});
+export interface createFileListBodySchema {
+	outputFileType: string;
+	metadata: {
+		admin?: {
+			application?: string;
+			accession?: string;
+		};
+		folders: folderMetadataSchema;
+		files: [fileMetadataSchema];
+	};
+}
 
 // TypeScript Type inferred from Zod Schema
-export type CreateFileListBody = z.infer<typeof createFileListBodySchema>;
+//export type CreateFileListBody = z.infer<typeof createFileListBodySchema>;
