@@ -70,7 +70,7 @@ function App(): JSX.Element {
 						<Route path="/send-records" element={<SendRecordsPage />} />
 					</Routes>
 				</main>
-				{/*{showVPNPopup && <VPNPopup />}*/}
+				{showVPNPopup && <VPNPopup />}
 			</div>
 		</BrowserRouter>
 	);
