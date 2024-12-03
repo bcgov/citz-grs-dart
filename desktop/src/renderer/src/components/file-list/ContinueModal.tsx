@@ -2,7 +2,6 @@ import { Button, TextField, Form, Select } from "@bcgov/design-system-react-comp
 import { Box, Typography, Modal } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { fileTypes } from "@renderer/schemas";
 
 const modalStyle = {
 	position: "absolute",
@@ -79,7 +78,10 @@ export const ContinueModal = ({ modalOpen, modalClose, modalSubmit }) => {
 				<Box sx={innerBoxStyle}>
 					<Select
 						isRequired
-						items={Object.values(fileTypes)}
+						items={[
+							{ id: 1, label: "Excel (.xlsx)" },
+							{ id: 2, label: "JSON (.json)" },
+						]}
 						name="outputFormat"
 						label="Output format"
 						defaultSelectedKey={1}

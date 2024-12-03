@@ -16,7 +16,9 @@ import {
 	copyFolderAndMetadata,
 	getFolderMetadata,
 	selectDirectory,
+	submitFileList,
 } from "./fileProcessing/actions";
+import type { SSOUser, IdirIdentityProvider } from "@bcgov/citz-imb-sso-js-core";
 
 app.setName("Digital Archives Transfer Service");
 
@@ -216,6 +218,22 @@ ipcMain.on("get-folder-metadata", async (event, { filePath }: { filePath: string
 		onCompletion({ success: false, error });
 	}
 });
+
+ipcMain.on(
+	"file-list-submit",
+	async (event, submitFormData: object, metadata: object, user: SSOUser<IdirIdentityProvider>) => {
+		debug('Begninning "file list submit" of main process.');
+		const props = { submitFormData, metadata, user };
+
+		try {
+			const res = submitFileList(props);
+			event.sender.send("file-list-submitted", res);
+		} catch (error) {
+			console.error(`Error in file-list-submit: ${error}`);
+			event.sender.send("file-list-submitted", { success: false, error });
+		}
+	},
+);
 
 ipcMain.handle("select-directory", () => {
 	debug('Beginning "select-directory" of main process.');

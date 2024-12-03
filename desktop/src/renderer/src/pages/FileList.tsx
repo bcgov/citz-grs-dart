@@ -9,11 +9,7 @@ import {
 import { useEffect, useState } from "react";
 import { useGridApiRef } from "@mui/x-data-grid";
 import { Lightbulb as TipIcon } from "@mui/icons-material";
-// import type {
-// 	createFileListBodySchema,
-// 	fileMetadataSchema,
-// 	folderMetadataSchema,
-// } from "@renderer/schemas";
+import type { SSOUser, IdirIdentityProvider } from "@bcgov/citz-imb-sso-js-core";
 
 type Props = {
 	accessToken: string | undefined;
@@ -29,6 +25,7 @@ export const FileListPage = ({ accessToken }: Props) => {
 	// set showContinue state controlls if the continue button is enabled
 	const [enableContinue, setEnableContinue] = useState<boolean>(false);
 	const [workers] = useState(window.api.workers);
+	const [api] = useState(window.api); // preload scripts
 	const [metadata, setMetadata] = useState<Record<string, unknown>>({});
 	const [pendingPaths, setPendingPaths] = useState<string[]>([]); // Tracks paths needing metadata processing
 	const theme = useTheme();
@@ -159,55 +156,14 @@ export const FileListPage = ({ accessToken }: Props) => {
 		// get user data from auth token
 		const user = sso.getUser(accessToken);
 
-		const fileTypeRequested = formData.outputFormat; // get excel/json from id
-
-		// const folderMetadata: folderMetadataSchema = {
-		// 	// fill these in
-		// 	schedule: "",
-		// 	classification: "",
-		// 	file: "",
-		// 	opr: null,
-		// 	startDate: "",
-		// 	endDate: "",
-		// 	soDate: "",
-		// 	fdDate: "",
-		// };
-
-		// const fileMetadata: fileMetadataSchema = {
-		// 	// fill these in
-		// 	filepath: "",
-		// 	filename: "",
-		// 	size: "",
-		// 	checksum: "",
-		// 	birthtime: "",
-		// 	lastModified: "",
-		// 	lastAccessed: "",
-		// 	lastSaved: "",
-		// 	authors: "",
-		// 	owner: "",
-		// 	company: "",
-		// 	computer: "",
-		// 	contentType: "",
-		// 	programName: "",
-		// };
-
-		// const requestBody: createFileListBodySchema = {
-		// 	outputFileType: fileTypeRequested,
-		// 	metadata: {
-		// 		admin: {
-		// 			application: formData.applicationNumber,
-		// 			accession: formData.accessionNumber,
-		// 		},
-		// 		folders: folderMetadata, // fix these errors
-		// 		files: fileMetadata,
-		// 	},
-		// };
-		//console.log(requestBody, user);
-
-		console.log("user: ", user);
-		console.log("type of metadata: ", typeof metadata, " ... metadata: ", metadata);
-		console.log("form data: ", formData, " ... file type: ", fileTypeRequested);
-		console.log("");
+		// call to main process to process form submit
+		console.log("sending: ", formData, metadata, user);
+		const result = api.processFileListSubmit(
+			formData,
+			metadata,
+			user as SSOUser<IdirIdentityProvider>,
+		);
+		console.log(result);
 
 		// clear rows on page
 		setRows([]);

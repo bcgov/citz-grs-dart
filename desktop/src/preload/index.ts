@@ -10,6 +10,12 @@ const api = {
 	checkIpRange,
 	getCurrentApiUrl: () => ipcRenderer.invoke("get-current-api-url"),
 	selectDirectory: () => ipcRenderer.invoke("select-directory"),
+	processFileListSubmit: ({
+		submitFormData,
+		metadata,
+		user,
+	}: { submitFormData: object; metadata: object; user: object }) =>
+		ipcRenderer.send("file-list-submit", { submitFormData, metadata, user }),
 	sso: {
 		getUser,
 		fetchProtectedRoute,

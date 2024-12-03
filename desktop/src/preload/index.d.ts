@@ -10,6 +10,11 @@ declare global {
 			checkIpRange: () => Promise<boolean>;
 			getCurrentApiUrl: () => Promise<string>;
 			selectDirectory: () => Promise<string[]>;
+			processFileListSubmit: (
+				submitFormData: object,
+				metadata: object,
+				user: object,
+			) => Prommise<object>;
 
 			sso: {
 				startLoginProcess: () => Promise<void>;
