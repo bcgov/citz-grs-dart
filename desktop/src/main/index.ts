@@ -219,21 +219,17 @@ ipcMain.on("get-folder-metadata", async (event, { filePath }: { filePath: string
 	}
 });
 
-ipcMain.on(
-	"file-list-submit",
-	async (event, submitFormData: object, metadata: object, user: SSOUser<IdirIdentityProvider>) => {
-		debug('Begninning "file list submit" of main process.');
-		const props = { submitFormData, metadata, user };
+ipcMain.handle("file-list-submit", (_event, formData: string, metadata: string, user: string) => {
+	debug('Begninning "file list submit" of main process.');
 
-		try {
-			const res = submitFileList(props);
-			event.sender.send("file-list-submitted", res);
-		} catch (error) {
-			console.error(`Error in file-list-submit: ${error}`);
-			event.sender.send("file-list-submitted", { success: false, error });
-		}
-	},
-);
+	try {
+		submitFileList(formData, metadata, user);
+		//event.sender.send("file-list-submitted", res);
+	} catch (error) {
+		console.error(`Error in file-list-submit: ${error}`);
+		//event.sender.send("file-list-submitted", { success: false, error });
+	}
+});
 
 ipcMain.handle("select-directory", () => {
 	debug('Beginning "select-directory" of main process.');

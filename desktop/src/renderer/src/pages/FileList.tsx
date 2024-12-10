@@ -157,11 +157,16 @@ export const FileListPage = ({ accessToken }: Props) => {
 		const user = sso.getUser(accessToken);
 
 		// call to main process to process form submit
-		console.log("sending: ", formData, metadata, user);
+		console.log(
+			"sending: ",
+			JSON.stringify(formData),
+			JSON.stringify(metadata),
+			JSON.stringify(user),
+		);
 		const result = api.processFileListSubmit(
-			formData,
-			metadata,
-			user as SSOUser<IdirIdentityProvider>,
+			JSON.stringify(formData),
+			JSON.stringify(metadata),
+			JSON.stringify(user),
 		);
 		console.log(result);
 

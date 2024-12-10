@@ -44,5 +44,11 @@ export interface createFileListBodySchema {
 	};
 }
 
+export interface submitFormData {
+	accessionNumber: string | undefined;
+	applicationNumber: string | undefined;
+	outputFormat: number | string;
+}
+
 // TypeScript Type inferred from Zod Schema
 //export type CreateFileListBody = z.infer<typeof createFileListBodySchema>;

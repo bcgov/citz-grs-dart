@@ -10,12 +10,10 @@ const api = {
 	checkIpRange,
 	getCurrentApiUrl: () => ipcRenderer.invoke("get-current-api-url"),
 	selectDirectory: () => ipcRenderer.invoke("select-directory"),
-	processFileListSubmit: ({
-		submitFormData,
-		metadata,
-		user,
-	}: { submitFormData: object; metadata: object; user: object }) =>
-		ipcRenderer.send("file-list-submit", { submitFormData, metadata, user }),
+	processFileListSubmit: (formData: string, metadata: string, user: string) => {
+		console.log("in preload got: ", formData, metadata, user);
+		ipcRenderer.invoke("file-list-submit", formData, metadata, user);
+	},
 	sso: {
 		getUser,
 		fetchProtectedRoute,
