@@ -59,3 +59,42 @@
 .vpn-popup button:hover {
 	background-color: #0056b3;
 }
+
+:root {
+	--toastify-icon-color-error: #ce3e39 !important;
+}
+
+.Toastify__close-button {
+	color: #2d2d2d;
+	padding: 7px;
+}
+
+.Toastify__toast-container--bottom-left {
+	bottom: 0;
+  left: unset !important;
+	margin-left: 15px;
+}
+
+.Toastify__toast-container {
+	position: fixed;
+	display: flex;
+	flex-direction: column;
+	cursor: pointer;
+	border-radius: 4px;
+}
+
+.Toastify__toast-icon {
+	margin-inline-end: 10px;
+	width: 16px;
+	margin-top: -18px;
+}
+
+.Toastify__toast {
+	background: #f4e1e2;
+	width: 640px;
+	min-height: 86px;
+	height: fit-content;
+	padding: 16px 24px;
+	color: #474543;
+	border: 1px solid #ce3e39;
+}
