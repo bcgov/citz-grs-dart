@@ -1,11 +1,12 @@
 import { Button } from "@bcgov/design-system-react-components";
 import { useNavigate } from "react-router-dom";
-import { Stack, Typography, useTheme } from "@mui/material";
 import { Lan as LanIcon, Computer as ComputerIcon } from "@mui/icons-material";
+import { Stack, Typography, useTheme } from "@mui/material";
 
 export const SendRecordsPage = () => {
   const navigate = useNavigate();
   const theme = useTheme();
+
   return (
     <Stack gap={4}>
       <Typography variant="h2" sx={{ marginBottom: -1 }}>
