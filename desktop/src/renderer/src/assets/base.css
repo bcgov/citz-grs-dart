@@ -9,6 +9,15 @@
 	--bcgov-dark-blue: #036;
 	--bcgov-yellow: #fcba19;
 
+	--file_upload_area-bg-invalid: #f4e1e2;
+	--file_upload_area-bg-valid: #f1f8fe;
+	--file_upload_area-bg-default: #ffffff;
+	--file_upload_area-border-invalid: #ce3e39;
+	--file_upload_area-border-valid: #1e5189;
+	--file_upload_area-border-default: #898785;
+	--file_upload_area-bg-uploaded-file: #f3f2f1;
+	--file_upload_area-border-browse-button: #353433;
+
 	--sub-agreement-border: #898785;
 	--scroll-bar: #d9d9d9;
 
