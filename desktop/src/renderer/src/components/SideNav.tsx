@@ -30,6 +30,7 @@ type Props = {
 
 export const SideNav = ({ accessToken, idToken }: Props) => {
   const navigate = useNavigate();
+  const theme = useTheme();
   const [currentPage, setCurrentPage] = useState("/");
   const [leavePageModalOpen, setLeavePageModalOpen] = useState(false);
   const [newPagePath, setNewPagePath] = useState("/");
