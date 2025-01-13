@@ -4,6 +4,32 @@
 	height: 65px;
 }
 
+.MuiDataGrid-columnHeaderTitle {
+	font-weight: 700 !important;
+}
+
+.MuiDataGrid-columnHeaders {
+	border-left: 1px solid var(--data-grid-border);
+	border-right: 1px solid var(--data-grid-border);
+}
+
+.MuiDataGrid-main {
+	border: 1px solid var(--data-grid-border);
+}
+
+.MuiDataGrid-columnSeparator {
+	color: var(--data-grid-border);
+}
+
+.MuiDataGrid-cell {
+	border-left: 1px solid var(--data-grid-border);
+	border-right: 1px solid var(--data-grid-border);
+}
+
+.MuiDataGrid-row--borderBottom {
+	border-bottom: 1px solid var(--data-grid-border);
+}
+
 .disabled-button {
 	background-color: var(--button-disabled);
 	opacity: 0.75;

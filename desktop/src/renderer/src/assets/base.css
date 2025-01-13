@@ -9,6 +9,15 @@
 	--bcgov-dark-blue: #036;
 	--bcgov-yellow: #fcba19;
 
+	--progress-complete: #42814a;
+	--progress-incomplete: #f8bb47;
+	--progress-cancelled: #fe3f35;
+
+	--icon: #2d2d2d;
+	--icon-disabled: #d8d8d8;
+
+	--data-grid-border: #d8d8d8;
+
 	--sub-agreement-border: #898785;
 	--scroll-bar: #d9d9d9;
 
